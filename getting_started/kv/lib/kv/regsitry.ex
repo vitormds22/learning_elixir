@@ -1,6 +1,5 @@
 defmodule KV.Registry do
   use GenServer
-
   @doc """
   Start the registry
   """
