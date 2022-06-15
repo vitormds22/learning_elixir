@@ -1,0 +1,10 @@
+{application,supervisor_app,
+             [{applications,[kernel,stdlib,elixir,logger]},
+              {description,"supervisor_app"},
+              {modules,['Elixir.SupervisorApp',
+                        'Elixir.SupervisorApp.Application',
+                        'Elixir.SupervisorApp.Supervisor',
+                        'Elixir.SupervisorApp.Unreliable']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.SupervisorApp.Application',[]}}]}.

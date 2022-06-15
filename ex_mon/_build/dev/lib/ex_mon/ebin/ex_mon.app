@@ -1,0 +1,10 @@
+{application,ex_mon,
+             [{applications,[kernel,stdlib,elixir,logger]},
+              {description,"ex_mon"},
+              {modules,['Elixir.ExMon','Elixir.ExMon.Game',
+                        'Elixir.ExMon.Game.Actions',
+                        'Elixir.ExMon.Game.Actions.Attack',
+                        'Elixir.ExMon.Game.Actions.Heal',
+                        'Elixir.ExMon.Game.Status','Elixir.ExMon.Player']},
+              {registered,[]},
+              {vsn,"0.1.0"}]}.
