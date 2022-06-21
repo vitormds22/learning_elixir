@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:13.4
     environment:
-      POSTGRES_DB: ex_mon_dev
+      POSTGRES_DB: magazinem_dev
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:

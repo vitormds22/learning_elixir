@@ -9,6 +9,7 @@ defmodule Magazinem.Client do
 
   schema "clients" do
     field :email, :string
+    field :age, :integer
     field :name, :string
     field :phone, :string
     field :sex, :string
@@ -18,10 +19,12 @@ defmodule Magazinem.Client do
     timestamps()
   end
 
+  @required_keys [:name, :age, :email, :sex]
   @doc false
   def changeset(client, attrs) do
     client
-    |> cast(attrs, [:name, :email, :phone, :size_clothes, :size_shoes, :sex])
-    |> validate_required([:name, :email, :phone, :size_clothes, :size_shoes, :sex])
+    |> cast(attrs, @required_keys)
+    |> validate_required(@required_keys)
+    |> validate_inclusion(:size_shoes, 33..45)
   end
 end

@@ -4,6 +4,7 @@ defmodule Magazinem.Repo.Migrations.CreateClients do
   def change do
     create table(:clients) do
       add :name, :string
+      add :age, :integer
       add :email, :string
       add :phone, :string
       add :size_clothes, :string

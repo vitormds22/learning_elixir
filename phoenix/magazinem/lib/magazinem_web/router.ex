@@ -7,6 +7,10 @@ defmodule MagazinemWeb.Router do
 
   scope "/api", MagazinemWeb do
     pipe_through :api
+
+    resources "/clients", ClientController, only: [:create, :show, :delete, :update]
+
+    resources "/address", AddressController, only: [:create, :show, :delete, :update]
   end
 
   # Enables LiveDashboard only for development
