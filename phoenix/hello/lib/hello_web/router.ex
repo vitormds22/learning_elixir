@@ -18,7 +18,8 @@ defmodule HelloWeb.Router do
   scope "/", HelloWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", PageController, :home
+    get "/redirect_test", PageController, :redirect_test
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
   end
