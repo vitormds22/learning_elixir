@@ -19,6 +19,8 @@ defmodule HelloWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/page_json", PageJsonController, :index
+    get "/page_json/:messenger", PageJsonController, :show
     get "/redirect_test", PageController, :redirect_test
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show

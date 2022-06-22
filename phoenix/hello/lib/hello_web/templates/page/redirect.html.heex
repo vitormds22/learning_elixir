@@ -1,3 +1,32 @@
 <section class="">
     <h1>THIS IS A REDIRECT</h1>
+    <%= if is_bitstring(@username) do %>
+    <p>Some condition is true for user: <%= @username %></p>
+    <% else %>
+    <p>Some condition is false for user: <%= @username %></p>
+    <% end %>
+
+    <table>
+        <tr>
+            <th>Number</th>
+            <th>Power</th>
+        </tr>
+        <%= for number <- 1..10 do %>
+        <tr>
+            <td><%= number %></td>
+            <td><%= number * number %></td>
+        </tr>
+        <% end %>
+    </table>
+
+    <div title="My div" class={@class}>
+        <p>Hello <%= @username %></p>
+    </div>
+
+    <%= "<b>It's not a bold</b>" %>
+    <%= raw "</br><b>This is a bold and breaking line</b>" %>
+
+    <%= Phoenix.View.render(HelloWeb.PageView, "test.html", message: "<br>Hello from layout!") %>
+    <%= render(HelloWeb.PageView, "test.html", message: raw "<br> Hello from layout 2!") %>
+    <%= render("test.html", message: "Hello from sibling template! 3") %>
 </section>

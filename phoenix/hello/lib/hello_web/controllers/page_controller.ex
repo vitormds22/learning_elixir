@@ -7,10 +7,10 @@ defmodule HelloWeb.PageController do
     conn
     |> put_flash(:info, "Welcome to Phoenix, from flash info!")
     |> put_flash(:error, "Let's pretend we have a error")
-    |> render("index.html")
+    |> redirect(to: Routes.page_path(conn, :redirect_test))
   end
 
-  #def redirect_test(conn, _params) do
-  # render(conn, "redirect.html")
-  #end
+  def redirect_test(conn, _params) do
+   render(conn, "redirect.html", username: "rafaelnunes", class: "phx-title")
+  end
 end
