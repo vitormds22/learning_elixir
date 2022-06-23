@@ -4,7 +4,12 @@ defmodule HelloWeb.ProductControllerTest do
   import Hello.CatalogFixtures
 
   @create_attrs %{description: "some description", price: "120.5", title: "some title", views: 42}
-  @update_attrs %{description: "some updated description", price: "456.7", title: "some updated title", views: 43}
+  @update_attrs %{
+    description: "some updated description",
+    price: "456.7",
+    title: "some updated title",
+    views: 43
+  }
   @invalid_attrs %{description: nil, price: nil, title: nil, views: nil}
 
   describe "index" do

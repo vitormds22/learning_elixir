@@ -10,6 +10,7 @@ defmodule HelloWeb.HelloController do
     |> assign(:messenger, messenger)
     |> assign(:receiver, "MACHADO")
     |> render("show.html")
+
     # json(conn, %{id: messenger})
     # text(conn, "From messenger #{messenger}")
   end

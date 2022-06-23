@@ -11,6 +11,6 @@ defmodule HelloWeb.PageController do
   end
 
   def redirect_test(conn, _params) do
-   render(conn, "redirect.html", username: "rafaelnunes", class: "phx-title")
+    render(conn, "redirect.html", username: "rafaelnunes", class: "phx-title")
   end
 end

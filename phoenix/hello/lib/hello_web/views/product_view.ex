@@ -2,7 +2,8 @@ defmodule HelloWeb.ProductView do
   use HelloWeb, :view
 
   def category_select(f, changeset) do
-    existing_ids = changeset |> Ecto.Changeset.get_change(:categories, []) |> Enum.map(& &1.data.id)
+    existing_ids =
+      changeset |> Ecto.Changeset.get_change(:categories, []) |> Enum.map(& &1.data.id)
 
     category_opts =
       for cat <- Hello.Catalog.list_categories(),
