@@ -27,7 +27,13 @@ defmodule AuthenticatorWeb.Telemetry do
       ),
       summary("phoenix.router_dispatch.stop.duration",
         tags: [:route],
+        tag_values: &get_and_put_http_method/1,
         unit: {:native, :millisecond}
+      ),
+      summary("phoenix.live_view.mount.stop.duration",
+        unit: {:native, :millisecond},
+        tags: [:view, :connected?],
+        tag_values: &live_view_metric_tag_values/1
       ),
 
       # Database Metrics
@@ -57,15 +63,36 @@ defmodule AuthenticatorWeb.Telemetry do
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
       summary("vm.total_run_queue_lengths.total"),
       summary("vm.total_run_queue_lengths.cpu"),
-      summary("vm.total_run_queue_lengths.io")
+      summary("vm.total_run_queue_lengths.io"),
+
+      last_value("authenticator.users.total"),
+      last_value("authenticator.auth_server.memory", unit: :byte),
+      last_value("authenticator.auth_server.message_queue_len"),
+      summary("authenticator.auth_server.call.stop.duration"),
+      counter("authenticator.auth_server.call.exception")
     ]
   end
 
+  defp get_and_put_http_method(%{conn: %{method: method}} = metadata) do
+    Map.put(metadata, :method, method)
+  end
+
+  defp live_view_metric_tag_values(metadata) do
+    metadata
+    |> Map.put(:view, inspect(metadata.socket.view))
+    |> Map.put(:connected?, get_connection_status(metadata.socket))
+  end
+
+  defp get_connection_status(%{connected?: true}), do: "Connected"
+  defp get_connection_status(%{connected?: false}), do: "Disconnected"
+
   defp periodic_measurements do
     [
-      # A module, function and arguments to be invoked periodically.
-      # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {AuthenticatorWeb, :count_users, []}
+      {Authenticator, :measure_users, []},
+      {:process_info,
+        event: [:authenticator, :auth_server],
+        name: Authenticator.AuthServer,
+        keys: [:message_queue_len, :memory]}
     ]
   end
 end

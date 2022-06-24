@@ -15,9 +15,10 @@ defmodule Authenticator.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Authenticator.PubSub},
       # Start the Endpoint (http/https)
-      AuthenticatorWeb.Endpoint
+      AuthenticatorWeb.Endpoint,
       # Start a worker by calling: Authenticator.Worker.start_link(arg)
       # {Authenticator.Worker, arg}
+      {Authenticator.AuthServer, fn -> "Hello Telemetry!!" end}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
