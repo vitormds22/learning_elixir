@@ -26,7 +26,8 @@ config :authenticator, AuthenticatorWeb.Endpoint,
   secret_key_base: "mqnOxzHrZHlOWXxniYIqJB/sq/Or9gqOQRjezbGLz6WQZd93XTXk8mbR46i+5vGl",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)]
   ]
 
 # ## SSL Support

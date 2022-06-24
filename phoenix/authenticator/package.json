@@ -1,6 +1,12 @@
 {
   "dependencies": {
+    "phoenix": "file:deps/phoenix",
+    "phoenix_html": "file:deps/phoenix_html",
+    "phoenix_live_view": "file:deps/phoenix_live_view",
     "topbar": "^1.0.1",
     "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.47"
   }
 }
