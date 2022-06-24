@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "topbar": "^1.0.1"
+    "topbar": "^1.0.1",
+    "yarn": "^1.22.19"
   }
 }
