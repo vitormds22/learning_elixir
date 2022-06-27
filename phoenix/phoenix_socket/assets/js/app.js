@@ -4,7 +4,7 @@ import "../css/app.css"
 
 // If you want to use Phoenix channels, run `mix help phx.gen.channel`
 // to get started and then uncomment the line below.
-import "./user_socket.js"
+// import "./user_socket.js"
 
 // You can include dependencies in two ways.
 //
@@ -43,3 +43,41 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+let socket = new Socket("/socket", {params: {token: window.userToken}})
+let channel = socket.channel("room:1", {token: "senha"})
+// let presence = new Presence(channel)
+
+// function renderOnlineUsers(presence) {
+//   let response = ""
+
+//   presence.list((id, {metas: [first, ...rest]}) => {
+//     let count = rest.length + 1
+//     response += `<br>${id} (count: ${count})</br>`
+//   })
+
+//   document.querySelector("main[role=main]").innerHTML = response
+// }
+
+let chatInput         = document.querySelector("#chat-input")
+let messagesContainer = document.querySelector("#messages")
+
+socket.connect()
+
+// presence.onSync(() => renderOnlineUsers(presence))
+
+chatInput.addEventListener("keypress", event => {
+  if(event.key === 'Enter'){
+    channel.push("new_msg", {body: chatInput.value})
+    chatInput.value = ""
+  }
+})
+
+channel.on("new_msg", payload => {
+  let messageItem = document.createElement("p")
+  messageItem.innerText = `[${Date()}] ${payload.body}`
+  messagesContainer.appendChild(messageItem)
+})
+
+channel.join()
+  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("error", resp => { console.log("Unable to join", resp) })

@@ -15,7 +15,9 @@ defmodule PhoenixSocket.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: PhoenixSocket.PubSub},
       # Start the Endpoint (http/https)
-      PhoenixSocketWeb.Endpoint
+      PhoenixSocketWeb.Endpoint,
+      # Presence statement
+      PhoenixSocketWeb.Presence
       # Start a worker by calling: PhoenixSocket.Worker.start_link(arg)
       # {PhoenixSocket.Worker, arg}
     ]

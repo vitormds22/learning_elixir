@@ -20,7 +20,6 @@ defmodule ExMon.Trainer do
     |> changeset()
     |> apply_action(:insert)
   end
-
   def changeset(params), do: create_changeset(%__MODULE__{}, params)
   def changeset(trainer, params), do: create_changeset(trainer, params)
 

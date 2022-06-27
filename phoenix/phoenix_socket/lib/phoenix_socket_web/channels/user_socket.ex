@@ -12,6 +12,9 @@ defmodule PhoenixSocketWeb.UserSocket do
   # pointing to the `PhoenixSocketWeb.RoomChannel`:
   #
   channel "room:*", PhoenixSocketWeb.RoomChannel
+
+  # channel "user:*", PhoenixSocketWeb.UserChannel
+
   #
   # To create a channel file, use the mix task:
   #
@@ -33,8 +36,18 @@ defmodule PhoenixSocketWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  # def connect(_params, socket, connect_info) do
+  #   IO.inspect(connect_info, label: "CONNECT INFO")
+  #   {:ok, socket}
+  # end
+
+  def connect(%{"token" => token}, socket, _connect_info) do
+    case Phoenix.Token.verify(socket, "user socket", token, max_age: 1209600) do
+      {:ok, user_id} ->
+        {:ok, assign(socket, :current_user, user_id)}
+      {:error, reason} ->
+        :error
+    end
   end
 
   # def connect(_params, socket, _connect_info) do
