@@ -1,14 +1,13 @@
 defmodule Magazinem.Repo.Migrations.CreateAddresses do
   use Ecto.Migration
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-
   def change do
-    create table(:addresses) do
+    create table(:addresses, primary_key: false) do
+      add :id, :uuid, primary_key: true
       add :street, :string
       add :number, :integer
       add :zipcode, :string
-      add :client_id, references(:clients, on_delete: :delete_all)
+      add :client_id, references(:clients, type: :uuid, on_delete: :delete_all), null: false
 
       timestamps()
     end

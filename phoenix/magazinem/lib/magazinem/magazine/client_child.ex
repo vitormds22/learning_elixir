@@ -1,6 +1,8 @@
-defmodule Magazinem.ClientChild do
+defmodule Magazinem.Magazine.ClientChild do
   use Ecto.Schema
   import Ecto.Changeset
+
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
 
   schema "clients_children" do
 

@@ -10,7 +10,7 @@ import Config
 config :blog_context, Oban,
   repo: BlogContext.Repo,
   plugins: [Oban.Plugins.Pruner],
-  queues: [default: 10]
+  queues: [default: 10, batatinha: 50, events: 50]
 
 # Configures the endpoint
 config :blog_context, BlogContextWeb.Endpoint,

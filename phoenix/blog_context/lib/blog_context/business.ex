@@ -1,5 +1,11 @@
 defmodule BlogContext.Business do
-  use Oban.Worker, queue: :events
+  use Oban.Worker,
+    queue: :batatinha,
+    priority: 3,
+    max_attempts: 3,
+    tags: ["business"],
+    unique: [period: 30]
+
   alias BlogContext.Blog
 
   @impl Oban.Worker

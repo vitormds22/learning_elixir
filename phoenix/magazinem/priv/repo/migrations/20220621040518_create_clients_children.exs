@@ -1,12 +1,10 @@
 defmodule Magazinem.Repo.Migrations.CreateClientsChildren do
   use Ecto.Migration
 
-  @primary_key {:id, Ecto.UUID, autogenerate: true}
-
   def change do
-    create table(:clients_children) do
-      add :client_id, references(:clients, on_delete: :delete_all)
-      add :child_id, references(:clients, on_delete: :delete_all)
+    create table(:clients_children, primary_key: false) do
+      add :client_id, references(:clients, type: :uuid, on_delete: :delete_all), null: false
+      add :child_id, references(:clients, type: :uuid, on_delete: :delete_all), null: false
 
       timestamps()
     end

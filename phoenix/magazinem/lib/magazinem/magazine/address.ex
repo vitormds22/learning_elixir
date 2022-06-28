@@ -1,6 +1,8 @@
-defmodule Magazinem.Address do
+defmodule Magazinem.Magazine.Address do
   use Ecto.Schema
   import Ecto.Changeset
+
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
 
   schema "addresses" do
     field :number, :integer
