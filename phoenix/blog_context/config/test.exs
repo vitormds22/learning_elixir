@@ -20,6 +20,8 @@ config :blog_context, BlogContextWeb.Endpoint,
   secret_key_base: "GINyhxUdHNcG9Kt3loejI9gWSoVaN1DWwatzMsHfrTi1Iyqz9aeqrA4hUcb1k2ju",
   server: false
 
+config :blog_context, Oban, testing: :inline
+
 # In test we don't send emails.
 config :blog_context, BlogContext.Mailer, adapter: Swoosh.Adapters.Test
 

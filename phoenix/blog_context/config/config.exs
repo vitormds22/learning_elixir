@@ -7,8 +7,10 @@
 # General application configuration
 import Config
 
-config :blog_context,
-  ecto_repos: [BlogContext.Repo]
+config :blog_context, Oban,
+  repo: BlogContext.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10]
 
 # Configures the endpoint
 config :blog_context, BlogContextWeb.Endpoint,

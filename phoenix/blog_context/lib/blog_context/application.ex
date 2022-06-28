@@ -10,6 +10,10 @@ defmodule BlogContext.Application do
     children = [
       # Start the Ecto repository
       BlogContext.Repo,
+
+      #Oban configuration Supervisor
+      {Oban, Application.fetch_env!(:blog_context, Oban)},
+
       # Start the Telemetry supervisor
       BlogContextWeb.Telemetry,
       # Start the PubSub system
