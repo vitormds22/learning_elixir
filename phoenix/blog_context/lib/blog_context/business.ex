@@ -1,10 +1,21 @@
 defmodule BlogContext.Business do
   use Oban.Worker,
-    queue: :batatinha,
+    queue: :events,
     priority: 3,
     max_attempts: 3,
     tags: ["business"],
     unique: [period: 30]
+    # We can configure the worker to be unique only by worker and queue
+    # unique: [fields: [:queue, :worker], period: 30]
+
+    # We can configure the worker to be unique for state
+    # unique: [states: [:available, :scheduled, :executing], period: 300]
+
+    # FOR ALL STATES
+    # unique: [states: Oban.jobs.states(), period: 300]
+
+    # Only for key => :batatinha
+    # unique: [fields: [:args, :worker], keys: [:batatinha]]
 
   alias BlogContext.Blog
 

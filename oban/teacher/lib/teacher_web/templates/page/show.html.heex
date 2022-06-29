@@ -1,0 +1,22 @@
+<h1>Show Teachers</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @teacher.name %>
+  </li>
+
+  <li>
+    <strong>Age:</strong>
+    <%= @teacher.age %>
+  </li>
+ 
+  <li>
+    <strong>ID:</strong>
+    <%= @teacher.id %>
+  </li>
+
+</ul>
+
+<span><%= link "Back", to: Routes.page_path(@conn, :index) %></span>

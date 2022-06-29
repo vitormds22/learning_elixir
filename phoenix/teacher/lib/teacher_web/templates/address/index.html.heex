@@ -1,0 +1,14 @@
+<section class="row">
+  <article class="column">
+    <h1>Oban tests</h1>
+
+    <h3>Create address</h3>
+    <%= form_for @conn, Routes.address_path(@conn, :create), fn f -> %>
+      <label>
+        CEP: <%= text_input f, :cep %>
+      </label>
+      
+      <%= submit "Add" %>
+    <% end %>
+  </article>
+</section>

@@ -7,17 +7,20 @@
 # General application configuration
 import Config
 
-config :blog_context, Oban,
-  repo: BlogContext.Repo,
-  plugins: [{Oban.Plugins.Pruner, max_age: 300}],
-  queues: [default: 10, batatinha: 5, events: 50]
+config :teacher,
+  ecto_repos: [Teacher.Repo]
 
 # Configures the endpoint
-config :blog_context, BlogContextWeb.Endpoint,
+config :teacher, TeacherWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: BlogContextWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: BlogContext.PubSub,
-  live_view: [signing_salt: "nHYCfONE"]
+  render_errors: [view: TeacherWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Teacher.PubSub,
+  live_view: [signing_salt: "hkcT4iMK"]
+
+config :teacher, Oban,
+  repo: Teacher.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 2]
 
 # Configures the mailer
 #
@@ -26,7 +29,7 @@ config :blog_context, BlogContextWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :blog_context, BlogContext.Mailer, adapter: Swoosh.Adapters.Local
+config :teacher, Teacher.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
