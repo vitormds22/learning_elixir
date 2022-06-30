@@ -1,0 +1,18 @@
+<section class="phx-hero">
+  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <p>Peace of mind from prototype to production</p>
+</section>
+
+<section class="row">
+  <article class="column">
+    <h2>Create Client</h2>
+
+    <%= form_for @conn, Routes.address_path(@conn, :create), fn f -> %>
+      <label>
+        CEP: <%= text_input f, :cep %>
+      </label>
+      <%= submit "CREATE" %>
+    <% end %>
+  </article>
+
+</section>

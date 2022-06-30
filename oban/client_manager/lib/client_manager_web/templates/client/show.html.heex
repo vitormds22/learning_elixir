@@ -1,0 +1,22 @@
+<h1>Show Client</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @client.name %>
+  </li>
+
+  <li>
+    <strong>Age:</strong>
+    <%= @client.age %>
+  </li>
+ 
+  <li>
+    <strong>ID:</strong>
+    <%= @client.id %>
+  </li>
+
+</ul>
+
+<span><%= link "Back", to: Routes.client_path(@conn, :index) %></span>

@@ -2,6 +2,9 @@ defmodule ClientManager.Addresses.Address do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
+  @keys [:cep, :logradouro, :complemento, :bairro, :localidade, :uf]
+
   schema "addresses" do
     field :bairro, :string
     field :cep, :string
@@ -9,6 +12,7 @@ defmodule ClientManager.Addresses.Address do
     field :localidade, :string
     field :logradouro, :string
     field :uf, :string
+    field :client_id, :id
 
     timestamps()
   end
@@ -16,7 +20,7 @@ defmodule ClientManager.Addresses.Address do
   @doc false
   def changeset(address, attrs) do
     address
-    |> cast(attrs, [:cep, :logradouro, :complemento, :bairro, :localidade, :uf])
-    |> validate_required([:cep, :logradouro, :complemento, :bairro, :localidade, :uf])
+    |> cast(attrs, @keys)
+    |> validate_required(@keys)
   end
 end

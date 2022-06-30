@@ -10,6 +10,10 @@ defmodule ClientManager.Application do
     children = [
       # Start the Ecto repository
       ClientManager.Repo,
+
+      # Oban
+      {Oban, Application.fetch_env!(:client_manager, Oban)},
+
       # Start the Telemetry supervisor
       ClientManagerWeb.Telemetry,
       # Start the PubSub system

@@ -17,6 +17,11 @@ config :client_manager, ClientManagerWeb.Endpoint,
   pubsub_server: ClientManager.PubSub,
   live_view: [signing_salt: "zRPjgg01"]
 
+config :client_manager, Oban,
+  repo: ClientManager.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10]
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

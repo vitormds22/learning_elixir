@@ -48,6 +48,9 @@ defmodule ClientManager.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
+      {:oban, "~> 2.12"},
+      {:httpoison, "~> 1.8"},
+      {:mox, "~> 1.0", only: :test},
       {:plug_cowboy, "~> 2.5"}
     ]
   end

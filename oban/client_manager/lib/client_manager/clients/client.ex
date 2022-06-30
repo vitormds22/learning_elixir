@@ -2,6 +2,8 @@ defmodule ClientManager.Clients.Client do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, Ecto.UUID, autogenerate: true}
+
   schema "clients" do
     field :age, :integer
     field :name, :string

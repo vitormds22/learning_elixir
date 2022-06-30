@@ -20,6 +20,19 @@ defmodule ClientManagerWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/client", ClientManagerWeb do
+    pipe_through :browser
+
+    get "/", ClientController, :index
+    post "/", ClientController, :create
+    get "/:id", ClientController, :show
+  end
+
+  scope "/address", ClientManagerWeb do
+    pipe_through :browser
+
+    post "/", AddressController, :create
+  end
   # Other scopes may use custom stacks.
   # scope "/api", ClientManagerWeb do
   #   pipe_through :api
