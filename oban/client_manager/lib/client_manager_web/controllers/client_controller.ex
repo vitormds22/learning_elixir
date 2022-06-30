@@ -9,8 +9,6 @@ defmodule ClientManagerWeb.ClientController do
   end
 
   def create(conn, params) do
-    IO.inspect(params, label: "AQUIIIIIIII CLIENT CHANGESET")
-
     case Clients.create_client(params) do
       {:ok, clients} ->
         conn

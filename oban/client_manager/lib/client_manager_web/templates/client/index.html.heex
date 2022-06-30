@@ -30,5 +30,31 @@
       <%= submit "CREATE" %>
     <% end %>
   </article>
+</section>
 
+<section class="row">
+  <article class="column"> 
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Occupation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for clients <- @clients do %>
+          <tr>
+            <td><%= clients.name %></td>
+            <td><%= clients.age %></td>
+            <td><%= clients.occupation %></td>
+            <td>
+              <span><%= link "Show", to: Routes.client_path(@conn, :show, clients) %></span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </article>
 </section>

@@ -9,6 +9,7 @@ defmodule ClientManager.Clients do
   alias ClientManager.Clients.Client
   alias ClientManager.Clients.Address
   alias ClientManager.FormClientInput
+  alias ClientManager.Viacep.Client, as: Viacep
 
   @doc """
   Returns the list of clients.
@@ -57,21 +58,26 @@ defmodule ClientManager.Clients do
     |> Repo.insert()
   end
 
-  # def create_client_with_address(attrs \\ %{}) do
-  #   attrs
-  #   |> FormClientInput.validate
-  #   |> case do
-  #      {:ok, input} ->
-  #       Repo.transaction(fn ->
-  #         client =
-  #           Client.changeset(%Client{}, Map.take(input, [:name, :age, :occupation]))
-  #           |> Repo.insert!()
+  def create_client_with_address(attrs \\ %{}) do
+    attrs
+    |> FormClientInput.validate
+    |> case do
+       {:ok, input} ->
+        Repo.transaction(fn ->
+          client =
+            Client.changeset(%Client{}, Map.take(input, [:name, :age, :occupation]))
+            |> Repo.insert!()
 
-  #           Address.changeset(%Address{}, Map.take(input, [:cep]))
-  #       end)
-  #       {:error, reason} -> {:error, reason}
-  #   end
-  # end
+          viacep_return =
+            Viacep.get_address(input.cep)
+
+            IO.inspect(client, viacep_return)
+        # Address.changeset(%Address{}, Map.take(input, [:cep]))
+        end)
+        {:error, reason} -> {:error, reason}
+    end
+  end
+
   @doc """
   Updates a client.
 

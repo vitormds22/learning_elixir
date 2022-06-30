@@ -23,7 +23,7 @@ defmodule ClientManagerWeb.AddressController do
   end
 
   def show(conn, %{"id" => id}) do
-    client = Clients.get_client!(id)
-    render(conn, "show.html", client: client)
+    address = Addresses.get_address!(id)
+    render(conn, "show.html", address: address)
   end
 end
