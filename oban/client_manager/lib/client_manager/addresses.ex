@@ -7,6 +7,7 @@ defmodule ClientManager.Addresses do
   alias ClientManager.Repo
 
   alias ClientManager.Addresses.Address
+  alias ClientManager.AddressEncoder
 
   @doc """
   Returns the list of addresses.
@@ -49,9 +50,30 @@ defmodule ClientManager.Addresses do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_address(attrs \\ %{}) do
+  def create_address(
+        %{
+          "bairro" => bairro,
+          "cep" => cep,
+          "complemento" => complemento,
+          "localidade" => localidade,
+          "logradouro" => logradouro,
+          "uf" => uf
+        },
+        client_id
+      ) do
+    # IO.inspect(client_id)
+    params = %{
+      bairro: bairro,
+      cep: cep,
+      complemento: complemento,
+      localidade: localidade,
+      logradouro: logradouro,
+      uf: uf,
+      client_id: client_id
+    }
+
     %Address{}
-    |> Address.changeset(attrs)
+    |> Address.changeset(params)
     |> Repo.insert()
   end
 

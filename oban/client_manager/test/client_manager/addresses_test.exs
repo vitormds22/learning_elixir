@@ -8,7 +8,14 @@ defmodule ClientManager.AddressesTest do
 
     import ClientManager.AddressesFixtures
 
-    @invalid_attrs %{bairro: nil, cep: nil, complemento: nil, localidade: nil, logradouro: nil, uf: nil}
+    @invalid_attrs %{
+      bairro: nil,
+      cep: nil,
+      complemento: nil,
+      localidade: nil,
+      logradouro: nil,
+      uf: nil
+    }
 
     test "list_addresses/0 returns all addresses" do
       address = address_fixture()
@@ -21,7 +28,14 @@ defmodule ClientManager.AddressesTest do
     end
 
     test "create_address/1 with valid data creates a address" do
-      valid_attrs = %{bairro: "some bairro", cep: "some cep", complemento: "some complemento", localidade: "some localidade", logradouro: "some logradouro", uf: "some uf"}
+      valid_attrs = %{
+        bairro: "some bairro",
+        cep: "some cep",
+        complemento: "some complemento",
+        localidade: "some localidade",
+        logradouro: "some logradouro",
+        uf: "some uf"
+      }
 
       assert {:ok, %Address{} = address} = Addresses.create_address(valid_attrs)
       assert address.bairro == "some bairro"
@@ -38,7 +52,15 @@ defmodule ClientManager.AddressesTest do
 
     test "update_address/2 with valid data updates the address" do
       address = address_fixture()
-      update_attrs = %{bairro: "some updated bairro", cep: "some updated cep", complemento: "some updated complemento", localidade: "some updated localidade", logradouro: "some updated logradouro", uf: "some updated uf"}
+
+      update_attrs = %{
+        bairro: "some updated bairro",
+        cep: "some updated cep",
+        complemento: "some updated complemento",
+        localidade: "some updated localidade",
+        logradouro: "some updated logradouro",
+        uf: "some updated uf"
+      }
 
       assert {:ok, %Address{} = address} = Addresses.update_address(address, update_attrs)
       assert address.bairro == "some updated bairro"

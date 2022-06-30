@@ -5,10 +5,11 @@ defmodule ClientManager.Clients do
 
   import Ecto.Query, warn: false
   alias ClientManager.Repo
+  alias Ecto.Multi
 
   alias ClientManager.Clients.Client
-  alias ClientManager.Clients.Address
-  alias ClientManager.FormClientInput
+  # alias ClientManager.Clients.Address
+  alias ClientManager.FormClientInputs
   alias ClientManager.Viacep.Client, as: Viacep
 
   @doc """
@@ -60,21 +61,29 @@ defmodule ClientManager.Clients do
 
   def create_client_with_address(attrs \\ %{}) do
     attrs
-    |> FormClientInput.validate
+    |> FormClientInputs.validate()
     |> case do
-       {:ok, input} ->
-        Repo.transaction(fn ->
-          client =
-            Client.changeset(%Client{}, Map.take(input, [:name, :age, :occupation]))
-            |> Repo.insert!()
+      {:ok, input} ->
+        {:ok, client} =
+          %Client{}
+          |> Client.changeset(Map.take(input, [:name, :age, :occupation]))
+          |> Repo.insert()
 
-          viacep_return =
-            Viacep.get_address(input.cep)
+        multi =
+          Multi.new()
+          |> Multi.run(:create_address, fn _, _ ->
+            Viacep.get_address(input.cep, client.id)
+          end)
 
-            IO.inspect(client, viacep_return)
-        # Address.changeset(%Address{}, Map.take(input, [:cep]))
-        end)
-        {:error, reason} -> {:error, reason}
+        IO.inspect(multi, label: "MULTI::::::::::::::;;")
+
+        case Repo.transaction(multi) do
+          {:ok, %{create_address: client}} -> {:ok, client}
+          {:error, reason} -> {:error, reason}
+        end
+
+      {:error, reason} ->
+        {:error, reason}
     end
   end
 

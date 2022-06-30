@@ -9,8 +9,6 @@ defmodule ClientManagerWeb.AddressController do
   end
 
   def create(conn, params) do
-    IO.inspect(params, label: "AQUIIIIIIII CEEEEEEP CHANGESET")
-
     case Addresses.create_address(params) do
       {:ok, clients} ->
         conn
