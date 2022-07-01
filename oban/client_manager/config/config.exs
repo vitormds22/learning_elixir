@@ -20,7 +20,7 @@ config :client_manager, ClientManagerWeb.Endpoint,
 config :client_manager, Oban,
   repo: ClientManager.Repo,
   plugins: [Oban.Plugins.Pruner],
-  queues: [default: 10]
+  queues: [default: 10, address: 2]
 
 # Configures the mailer
 #

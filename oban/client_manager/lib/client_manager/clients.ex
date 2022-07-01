@@ -8,7 +8,8 @@ defmodule ClientManager.Clients do
   alias Ecto.Multi
 
   alias ClientManager.Clients.Client
-  # alias ClientManager.Clients.Address
+  alias ClientManager.Addresses.Address
+  alias ClientManager.Jobs.AddressJob
   alias ClientManager.FormClientInputs
   alias ClientManager.Viacep.Client, as: Viacep
 
@@ -64,24 +65,22 @@ defmodule ClientManager.Clients do
     |> FormClientInputs.validate()
     |> case do
       {:ok, input} ->
-        {:ok, client} =
-          %Client{}
-          |> Client.changeset(Map.take(input, [:name, :age, :occupation]))
-          |> Repo.insert()
+        client_inputs = Map.take(input, [:name, :age, :occupation])
 
         multi =
           Multi.new()
-          |> Multi.run(:create_address, fn _, _ ->
-            Viacep.get_address(input.cep, client.id)
+          |> Multi.insert(:client, fn _ -> Client.changeset(%Client{}, client_inputs) end)
+          |> Multi.insert(:address, fn %{client: client} -> Address.changeset(%Address{}, %{cep: input.cep, client_id: client.id}) end)
+          |> Multi.run(:job, fn _, %{client: client} ->
+            %{cep: input.cep, id: client.id}
+            |> AddressJob.new()
+            |> Oban.insert()
           end)
 
-        IO.inspect(multi, label: "MULTI::::::::::::::;;")
-
         case Repo.transaction(multi) do
-          {:ok, %{create_address: client}} -> {:ok, client}
+          {:ok, %{address: address}} -> {:ok, address}
           {:error, reason} -> {:error, reason}
         end
-
       {:error, reason} ->
         {:error, reason}
     end

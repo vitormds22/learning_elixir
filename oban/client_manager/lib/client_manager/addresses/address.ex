@@ -5,7 +5,7 @@ defmodule ClientManager.Addresses.Address do
   alias ClientManager.Clients.Client
 
   @primary_key {:id, Ecto.UUID, autogenerate: true}
-  @required_key [:cep, :logradouro, :bairro, :localidade, :uf, :client_id]
+  @required_key [:cep]
   @foreign_key_type Ecto.UUID
 
   schema "addresses" do
