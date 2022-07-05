@@ -50,27 +50,8 @@ defmodule ClientManager.Addresses do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_address(
-        %{
-          "bairro" => bairro,
-          "cep" => cep,
-          "complemento" => complemento,
-          "localidade" => localidade,
-          "logradouro" => logradouro,
-          "uf" => uf
-        },
-        client_id
-      ) do
-    # IO.inspect(client_id)
-    params = %{
-      bairro: bairro,
-      cep: cep,
-      complemento: complemento,
-      localidade: localidade,
-      logradouro: logradouro,
-      uf: uf,
-      client_id: client_id
-    }
+  def create_address(params, client_id) do
+    params = Map.put(params, :client_id, client_id)
 
     %Address{}
     |> Address.changeset(params)

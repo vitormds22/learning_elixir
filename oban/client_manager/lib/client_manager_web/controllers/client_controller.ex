@@ -12,6 +12,7 @@ defmodule ClientManagerWeb.ClientController do
     case Clients.create_client_with_address(params) do
       {:ok, clients} ->
         IO.inspect(clients)
+
         conn
         |> put_flash(:info, "Client created successfully!")
         |> redirect(to: Routes.client_path(conn, :show, clients.client_id))

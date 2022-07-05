@@ -1,4 +1,7 @@
 defmodule ClientManager.ClientsFixtures do
+  alias ClientManager.Clients.Client
+  alias ClientManager.Repo
+
   @moduledoc """
   This module defines test helpers for creating
   entities via the `ClientManager.Clients` context.
@@ -8,15 +11,16 @@ defmodule ClientManager.ClientsFixtures do
   Generate a client.
   """
   def client_fixture(attrs \\ %{}) do
-    {:ok, client} =
+    params =
       attrs
       |> Enum.into(%{
         age: 42,
         name: "some name",
         occupation: "some occupation"
       })
-      |> ClientManager.Clients.create_client()
 
-    client
+    %Client{}
+    |> Client.changeset(params)
+    |> Repo.insert!()
   end
 end

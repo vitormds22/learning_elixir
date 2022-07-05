@@ -1,4 +1,7 @@
 defmodule ClientManager.AddressesFixtures do
+  alias ClientManager.Addresses.Address
+  alias ClientManager.Repo
+
   @moduledoc """
   This module defines test helpers for creating
   entities via the `ClientManager.Addresses` context.
@@ -8,7 +11,7 @@ defmodule ClientManager.AddressesFixtures do
   Generate a address.
   """
   def address_fixture(attrs \\ %{}) do
-    {:ok, address} =
+    params =
       attrs
       |> Enum.into(%{
         bairro: "some bairro",
@@ -18,8 +21,9 @@ defmodule ClientManager.AddressesFixtures do
         logradouro: "some logradouro",
         uf: "some uf"
       })
-      |> ClientManager.Addresses.create_address()
 
-    address
+    %Address{}
+    |> Address.changeset(params)
+    |> Repo.insert!()
   end
 end
