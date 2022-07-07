@@ -15,5 +15,5 @@ defmodule ClientManager.Viacep.ClientImpl do
 
   defp handle_get({:ok, %Tesla.Env{status: 200, body: body}}), do: {:ok, body}
   defp handle_get({:ok, %Tesla.Env{status: 404}}), do: {:error, :not_found}
-  defp handle_get({:error, _reason}), do: {:error, :request_failed}
+  defp handle_get({:ok, %Tesla.Env{status: 400}}), do: {:error, :request_failed}
 end

@@ -70,9 +70,6 @@ defmodule ClientManager.Clients do
         multi =
           Multi.new()
           |> Multi.insert(:client, fn _ -> Client.changeset(%Client{}, client_inputs) end)
-          # |> Multi.insert(:address, fn %{client: client} ->
-          #   Address.changeset(%Address{}, %{cep: input.cep, client_id: client.id})
-          # end)
           |> Multi.run(:job, fn _, %{client: client} ->
             %{cep: input.cep, id: client.id}
             |> AddressJob.new()

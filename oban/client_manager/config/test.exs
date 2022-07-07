@@ -13,6 +13,11 @@ config :client_manager, ClientManager.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
+config :client_manager,
+  viacep_impl: ClientManager.Ports.BoundAddressMock
+
+config :tesla, adapter: TeslaMock
+
 config :client_manager, Oban,
   testing: :inline,
   queues: false,

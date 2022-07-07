@@ -1,0 +1,16 @@
+version: "3.2"
+
+volumes: 
+  postgres_volume:
+    driver: local
+
+services:
+  postgres:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432

@@ -9,6 +9,7 @@ defmodule ExMon.PokeApi.ClientTest do
       body = %{"name" => "pikachu", "weight" => 60, "types" => ["eletric"]}
 
       mock(fn %{method: :get, url: @base_url <> "pikachu"} ->
+        IO.inspect(body)
         %Tesla.Env{status: 200, body: body}
       end)
 

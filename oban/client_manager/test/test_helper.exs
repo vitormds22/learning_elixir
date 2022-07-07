@@ -1,5 +1,5 @@
 Mox.defmock(ClientManager.Ports.BoundAddressMock, for: ClientManager.Ports.BoundAddress)
-Application.put_env(:client_manager, :viacep_impl, ClientManager.Ports.BoundAddressMock)
+Mox.defmock(TeslaMock, for: Tesla.Adapter)
 
 ExUnit.start()
 Ecto.Adapters.SQL.Sandbox.mode(ClientManager.Repo, :manual)
